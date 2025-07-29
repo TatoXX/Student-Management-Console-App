@@ -76,14 +76,12 @@ public class StudentManager {
 
     }
     public void clearAll(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println(
-                "Are you sure to clear the list that stores all students?"
-        );
-        System.out.println("Enter yes or no: ");
-        String input = scanner.nextLine().trim();
+        InputHandler inputHandler = new InputHandler();
+
 
        while (true) {
+
+           String input = inputHandler.SureToClear();
            if (input.equalsIgnoreCase("yes")) {
                students.clear();
                System.out.println("Successfully cleared.");
@@ -95,7 +93,7 @@ public class StudentManager {
 
            } else {
                System.out.println("Invalid input");
-               System.out.println("Are you sure that you want to clear student list? Please Enter yes or no: ");
+
            }
 
        }
