@@ -8,10 +8,11 @@ public class Student {
     private String course;
     private static int nextId = 1;
 
-    Student(int age, String name, String email) {
+    public Student(int age, String name, String email, String course) {
         this.age = age;
         this.name = name;
         this.email = email;
+        this.course = course;
         this.id = nextId++;
     }
 

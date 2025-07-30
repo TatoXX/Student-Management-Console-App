@@ -1,5 +1,6 @@
 package org.example;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
@@ -103,6 +104,41 @@ public class StudentManager {
 
        }
 
+    }
+    private final String filename = "data/students.json";
+
+    // Save students to JSON file
+    public void saveToFile() {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        try (Writer writer = new FileWriter(filename)) {
+            gson.toJson(students, writer);
+            System.out.println("Students saved successfully.");
+        } catch (IOException e) {
+            System.out.println("Failed to save students: " + e.getMessage());
+        }
+    }
+
+    // Load students from JSON file
+    public void loadFromFile() {
+        File file = new File(filename);
+        if (!file.exists()) {
+            System.out.println("No saved data found, starting fresh.");
+            return;
+        }
+
+        Gson gson = new Gson();
+        try (Reader reader = new FileReader(filename)) {
+            Type studentListType = new TypeToken<List<Student>>(){}.getType();
+            students = gson.fromJson(reader, studentListType);
+            System.out.println("Students loaded successfully.");
+        } catch (IOException e) {
+            System.out.println("Failed to load students: " + e.getMessage());
+        }
+    }
+
+    // Add a getter to access students for display etc.
+    public List<Student> getStudents() {
+        return students;
     }
 
 

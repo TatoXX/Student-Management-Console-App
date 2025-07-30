@@ -5,6 +5,9 @@ public class Main {
         StudentManager manager = new StudentManager();
         InputHandler inputHandler = new InputHandler();
 
+        manager.loadFromFile();
+
+
         while (true) {
             inputHandler.displayMenu();
             int choice = inputHandler.getIntInput("Enter your choice: ");
@@ -18,10 +21,13 @@ public class Main {
                     Student student = new Student(age, name, email, course );
                     manager.addStudent(student);
                     System.out.println("Student added successfully.");
+                    manager.saveToFile();
                 }
                 case 2 -> {
                     int id = inputHandler.getIntInput("Enter student ID to delete: ");
                     manager.deleteStudentById(id);
+                    manager.saveToFile();
+
                 }
                 case 3 -> {
                     int id = inputHandler.getIntInput("Enter student ID to find: ");
@@ -38,10 +44,12 @@ public class Main {
                     String course = inputHandler.getStringInput("Enter new course: ");
                     Student updated = new Student(age, name, email, course);
                     manager.updateStudent(id, updated);
+                    manager.saveToFile();
                     System.out.println("Student updated successfully.");
                 }
                 case 6 -> {
                     manager.clearAll();
+                    manager.saveToFile();
                 }
                 case 0 -> {
                     System.out.println("Exiting...");
