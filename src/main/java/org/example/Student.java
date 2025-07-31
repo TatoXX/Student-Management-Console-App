@@ -1,12 +1,15 @@
 package org.example;
 
 public class Student {
+
     private int age;
     private String name;
     private int id;
     private String email;
     private String course;
     private static int nextId = 1;
+
+    //Student constructor
 
     public Student(int age, String name, String email, String course) {
         this.age = age;
@@ -17,6 +20,7 @@ public class Student {
     }
 
 
+    //Getters & Setters
 
     public String getName() {
         return name;
@@ -62,6 +66,8 @@ public class Student {
     public static void setNextId(int id) {
         nextId = id;
     }
+
+    //toString Method
 
     @Override
     public String toString() {

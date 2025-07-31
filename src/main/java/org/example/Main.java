@@ -2,19 +2,25 @@ package org.example;
 
 public class Main {
     public static void main(String[] args) {
+
         StudentManager manager = new StudentManager();
         InputHandler inputHandler = new InputHandler();
 
+        //Load Students From Json
+        System.out.println();
         manager.loadFromFile();
 
 
         while (true) {
+            //Display Menu
             inputHandler.displayMenu();
+            //User Choice
             int choice = inputHandler.getIntInput("Enter your choice: ");
 
             switch (choice) {
+                //Add Student
                 case 1 -> {
-                    String name = inputHandler.getStringInput("Enter name: ");
+                    String name = inputHandler.getNameInput("Enter name: ");
                     int age = inputHandler.getAgeInput("Enter age: ");
                     String email = inputHandler.getEmailInput("Enter email: ");
                     String course = inputHandler.getStringInput("Enter course: ");
@@ -23,19 +29,22 @@ public class Main {
                     System.out.println("Student added successfully.");
                     manager.saveToFile();
                 }
+                //Delete Student By ID
                 case 2 -> {
                     int id = inputHandler.getIntInput("Enter student ID to delete: ");
                     manager.deleteStudentById(id);
                     manager.saveToFile();
 
                 }
+                //Find Student By ID
                 case 3 -> {
                     int id = inputHandler.getIntInput("Enter student ID to find: ");
                     manager.findStudentById(id);
                 }
-                case 4 -> {
-                    manager.getAllStudents();
-                }
+                //Get all Students
+                case 4 -> manager.getAllStudents();
+
+                //Update Student By ID
                 case 5 -> {
                     int id = inputHandler.getIntInput("Enter student ID to update: ");
                     String name = inputHandler.getStringInput("Enter new name: ");
@@ -47,14 +56,17 @@ public class Main {
                     manager.saveToFile();
                     System.out.println("Student updated successfully.");
                 }
+                //Clear All Students
                 case 6 -> {
                     manager.clearAll();
                     manager.saveToFile();
                 }
+                //Exit
                 case 0 -> {
                     System.out.println("Exiting...");
                     return;
                 }
+                //Invalid Choice
                 default -> System.out.println("Invalid choice. Try again.");
             }
         }

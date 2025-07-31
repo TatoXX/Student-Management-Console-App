@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class InputHandler {
     private final Scanner scanner = new Scanner(System.in);
 
-    //Menu
+    //Menu Display
     public void displayMenu() {
 
         System.out.println("\n--- Student Management Menu ---");
@@ -38,7 +38,27 @@ public class InputHandler {
 
     }
 
-    //Email
+    //Name input
+    public String getNameInput(String message) {
+        while (true) {
+            System.out.print(message);
+            String name = scanner.nextLine().trim();
+            if (isValidName(name)) {
+                return name;
+            } else {
+                System.out.println("Please enter a valid name.");
+            }
+        }
+
+
+    }
+
+    public static boolean isValidName(String name) {
+        return name != null && name.matches("^[A-Z][a-zA-Z]*(?:[ '-][a-zA-Z]+)*$");
+    }
+
+
+    //Email Input
 
     public String getEmailInput(String message) {
         while (true) {
@@ -56,7 +76,7 @@ public class InputHandler {
         return atPos > 0 && dotPos > atPos;
     }
 
-    //Age
+    //Age Input
     public int getAgeInput(String message) {
         while (true) {
             System.out.print(message);
@@ -67,11 +87,9 @@ public class InputHandler {
 
         }
     }
-
     private boolean isValidAge(int age) {
 
         return age >= 15 && age <= 100;
-
     }
 
 
@@ -83,8 +101,7 @@ public class InputHandler {
                 "Are you sure to clear the list that stores all students?"
         );
         System.out.println("Enter yes or no: ");
-        String input = scanner.nextLine().trim();
-        return input;
+        return scanner.nextLine().trim();
     }
 
 

@@ -11,12 +11,16 @@ import java.util.List;
 
 
 public class StudentManager {
-    private List<Student> students = new ArrayList<Student>();
+    //Added Students List
+    private List<Student> students = new ArrayList<>();
+
+    //Add Student
 
     public void addStudent(Student student) {
         students.add(student);
     }
 
+    //Delete Student By ID
 
     public void deleteStudentById(int id) {
         Student deletedStudent = null;
@@ -37,6 +41,8 @@ public class StudentManager {
 
     }
 
+    //Find Student By ID
+
     public void findStudentById(int id) {
         Student foundStudent = null;
         for (Student student : students) {
@@ -56,6 +62,8 @@ public class StudentManager {
         }
     }
 
+    //Get All Students
+
     public void getAllStudents() {
         if (students.isEmpty()) {
             System.out.println("No students to display.");
@@ -65,6 +73,8 @@ public class StudentManager {
             System.out.println(student);
         }
     }
+
+    //Update Student with ID
 
     public void updateStudent(int id, Student updatedStudent ) {
         Student findstudent = null;
@@ -85,6 +95,10 @@ public class StudentManager {
         }
 
     }
+
+
+    //Clear Students
+
     public void clearAll(){
         InputHandler inputHandler = new InputHandler();
 
@@ -109,6 +123,8 @@ public class StudentManager {
        }
 
     }
+
+    //Json filename
     private final String filename = "data/students.json";
 
     // Save students to JSON file
