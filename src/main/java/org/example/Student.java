@@ -59,6 +59,10 @@ public class Student {
         this.course = course;
     }
 
+    public static void setNextId(int id) {
+        nextId = id;
+    }
+
     @Override
     public String toString() {
         return "Student{" +

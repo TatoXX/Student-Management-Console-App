@@ -57,6 +57,10 @@ public class StudentManager {
     }
 
     public void getAllStudents() {
+        if (students.isEmpty()) {
+            System.out.println("No students to display.");
+            return;
+        }
         for (Student student : students) {
             System.out.println(student);
         }
@@ -130,6 +134,11 @@ public class StudentManager {
         try (Reader reader = new FileReader(filename)) {
             Type studentListType = new TypeToken<List<Student>>(){}.getType();
             students = gson.fromJson(reader, studentListType);
+            int maxId = students.stream()
+                    .mapToInt(Student::getId)
+                    .max()
+                    .orElse(0);
+            Student.setNextId(maxId + 1);
             System.out.println("Students loaded successfully.");
         } catch (IOException e) {
             System.out.println("Failed to load students: " + e.getMessage());
