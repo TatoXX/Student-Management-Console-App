@@ -15,8 +15,8 @@ public class Main {
             switch (choice) {
                 case 1 -> {
                     String name = inputHandler.getStringInput("Enter name: ");
-                    int age = inputHandler.getIntInput("Enter age: ");
-                    String email = inputHandler.getStringInput("Enter email: ");
+                    int age = inputHandler.getAgeInput("Enter age: ");
+                    String email = inputHandler.getEmailInput("Enter email: ");
                     String course = inputHandler.getStringInput("Enter course: ");
                     Student student = new Student(age, name, email, course );
                     manager.addStudent(student);
