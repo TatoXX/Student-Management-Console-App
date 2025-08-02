@@ -43,7 +43,7 @@ public class StudentManager {
 
     //Find Student By ID
 
-    public void findStudentById(int id) {
+    public Student findStudentById(int id) {
         Student foundStudent = null;
         for (Student student : students) {
             if (student.getId() == id) {
@@ -60,18 +60,20 @@ public class StudentManager {
             System.out.println("Student with id " + id + " not found.");
 
         }
+        return foundStudent;
     }
 
     //Get All Students
 
-    public void getAllStudents() {
+    public List<Student> getAllStudents() {
         if (students.isEmpty()) {
             System.out.println("No students to display.");
-            return;
+            return null;
         }
         for (Student student : students) {
             System.out.println(student);
         }
+        return null;
     }
 
     //Update Student with ID
