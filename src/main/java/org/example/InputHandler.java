@@ -54,7 +54,10 @@ public class InputHandler {
     }
 
     public static boolean isValidName(String name) {
-        return name != null && name.matches("^[A-Z][a-zA-Z]*(?:[ '-][a-zA-Z]+)*$");
+        if (name == null) return false;
+        if(name.length()<2 || name.length()>30) {
+            return false;
+        }else return name.matches("^[A-Z][a-zA-Z]*(?:[ '-][a-zA-Z]+)*$");
     }
 
 
@@ -70,27 +73,56 @@ public class InputHandler {
 
         }
     }
-    private boolean isValidEmail(String email) {
-        int atPos = email.indexOf('@');
-        int dotPos = email.lastIndexOf('.');
-        return atPos > 0 && dotPos > atPos;
+    public static boolean isValidEmail(String email) {
+        if (email == null || email.isEmpty() || email.length() > 254) {
+            return false;
+        }
+
+        String emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+
+        return email.matches(emailRegex);
     }
 
     //Age Input
     public int getAgeInput(String message) {
         while (true) {
             System.out.print(message);
-            int age = Integer.parseInt(scanner.nextLine().trim());
-            if (isValidAge(age)) {
-                return age;
-            }else System.out.println("Please enter a valid Student Age: ");
-
+            String input = scanner.nextLine().trim();
+            try {
+                int age = Integer.parseInt(input);
+                if (isValidAge(age)) {
+                    return age;
+                } else {
+                    System.out.println("Age must be between 15 and 100.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a valid integer number.");
+            }
         }
     }
-    private boolean isValidAge(int age) {
+    public static boolean isValidAge(int age) {
 
         return age >= 15 && age <= 100;
     }
+
+    //Course input
+    public String getCourseInput(String message) {
+        while (true) {
+            String course = getStringInput(message);
+            if (isValidCourse(course)) {
+                return course;
+            } else {
+                System.out.println("Please enter a valid course name (2-50 characters).");
+            }
+        }
+    }
+    public static boolean isValidCourse(String course) {
+        return course != null &&
+                !course.trim().isEmpty() &&
+                course.trim().length() >= 2 &&
+                course.trim().length() <= 50;
+    }
+
 
 
 
