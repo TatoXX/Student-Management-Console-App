@@ -23,7 +23,7 @@ public class Main {
                     String name = inputHandler.getNameInput("Enter name: ");
                     int age = inputHandler.getAgeInput("Enter age: ");
                     String email = inputHandler.getEmailInput("Enter email: ");
-                    String course = inputHandler.getStringInput("Enter course: ");
+                    String course = inputHandler.getCourseInput("Enter course: ");
                     Student student = new Student(age, name, email, course );
                     manager.addStudent(student);
                     System.out.println("Student added successfully.");
@@ -46,11 +46,14 @@ public class Main {
 
                 //Update Student By ID
                 case 5 -> {
-                    int id = inputHandler.getIntInput("Enter student ID to update: ");
-                    String name = inputHandler.getStringInput("Enter new name: ");
-                    int age = inputHandler.getIntInput("Enter new age: ");
-                    String email = inputHandler.getStringInput("Enter new email: ");
-                    String course = inputHandler.getStringInput("Enter new course: ");
+                    int id = inputHandler.getExistingID("Enter student ID to update: ");
+                    if(id == 0){
+                        break;
+                    }
+                    String name = inputHandler.getNameInput("Enter new name: ");
+                    int age = inputHandler.getAgeInput("Enter new age: ");
+                    String email = inputHandler.getEmailInput("Enter new email: ");
+                    String course = inputHandler.getCourseInput("Enter new course: ");
                     Student updated = new Student(age, name, email, course);
                     manager.updateStudent(id, updated);
                     manager.saveToFile();

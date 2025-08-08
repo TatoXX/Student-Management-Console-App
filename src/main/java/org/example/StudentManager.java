@@ -7,17 +7,26 @@ import java.io.*;
 import java.lang.reflect.Type;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 public class StudentManager {
     //Added Students List
     private List<Student> students = new ArrayList<>();
 
+    private static Set<Integer> usedIDs = new HashSet<>();
+
+    public static boolean isIDTaken(int id) {
+        return usedIDs.contains(id);
+    }
+
     //Add Student
 
     public void addStudent(Student student) {
         students.add(student);
+        usedIDs.add(student.getId());
     }
 
     //Delete Student By ID
@@ -27,6 +36,8 @@ public class StudentManager {
         for (Student student : students) {
             if(student.getId() == id ){
                 deletedStudent = student;
+                usedIDs.remove(student.getId());
+
                 break;
 
             }
@@ -162,6 +173,12 @@ public class StudentManager {
             System.out.println("Failed to load students: " + e.getMessage());
         }
     }
+
+
+
+
+
+
 
     // Add a getter to access students for display etc.
     public List<Student> getStudents() {

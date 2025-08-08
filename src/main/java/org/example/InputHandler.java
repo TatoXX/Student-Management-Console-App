@@ -123,6 +123,55 @@ public class InputHandler {
                 course.trim().length() <= 50;
     }
 
+    public int getIDInput(String message) {
+        while (true) {
+            System.out.print(message);
+            String input = scanner.nextLine().trim();
+            try {
+                int ID = Integer.parseInt(input);
+                if (!isValidID(ID)) {
+                    System.out.println("ID must be between 1 and 10000.");
+                } else if (StudentManager.isIDTaken(ID)) {
+                    System.out.println("This ID is already taken. Please choose a unique ID.");
+                } else {
+                    return ID;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a valid integer number.");
+            }
+        }
+    }
+
+    public static boolean isValidID(int ID) {
+        return ID >= 1 && ID <= 10000;
+
+    }
+
+
+    public int getExistingID(String message) {
+        System.out.print(message);
+        while (true) {
+            String input = scanner.nextLine().trim();
+            try {
+                int ID = Integer.parseInt(input);
+                if (StudentManager.isIDTaken(ID)) {
+                    System.out.println("Student found by ID: " + ID);
+                    return ID;
+                } else if (ID == 0) {
+                    System.out.println("Returning...");
+                    return ID;
+
+                } else {
+                    System.out.print("Please enter correct ID or Enter 0 to return to the main menu: ");
+                }
+            }catch (NumberFormatException e) {
+                System.out.print("Please enter a valid integer ID or 0 to return to the Main Menu: ");
+            }
+
+        }
+
+    }
+
 
 
 
