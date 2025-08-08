@@ -1,8 +1,30 @@
 package org.example;
 
+import com.google.gson.*;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.Scanner;
 
 public class InputHandler {
+    private static List<String> availableCourses;
+
+    static {
+        try {
+            // Read and parse JSON file
+            String jsonContent = new String(Files.readAllBytes(Paths.get("Data/courses.json")));
+            JsonObject jsonObject = JsonParser.parseString(jsonContent).getAsJsonObject();
+            JsonArray jsonCourses = jsonObject.getAsJsonArray("availableCourses");
+
+            // Convert JSON array to Java list
+            availableCourses = new Gson().fromJson(jsonCourses, List.class);
+        } catch (IOException | JsonParseException e) {
+            System.err.println("Error loading course list: " + e.getMessage());
+            availableCourses = List.of(); // fallback to empty list
+        }
+    }
     private final Scanner scanner = new Scanner(System.in);
 
     //Menu Display
@@ -107,21 +129,32 @@ public class InputHandler {
 
     //Course input
     public String getCourseInput(String message) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Available Courses:");
+        for (String course : availableCourses) {
+            System.out.println("- " + course);
+        }
         while (true) {
-            String course = getStringInput(message);
+            System.out.print(message);
+            String course = scanner.nextLine().trim();
             if (isValidCourse(course)) {
                 return course;
             } else {
-                System.out.println("Please enter a valid course name (2-50 characters).");
+                System.out.println("Please enter a valid course name from the list.");
             }
         }
     }
+
     public static boolean isValidCourse(String course) {
-        return course != null &&
-                !course.trim().isEmpty() &&
-                course.trim().length() >= 2 &&
-                course.trim().length() <= 50;
+        for (String available : availableCourses) {
+            if (available.equalsIgnoreCase(course)) {
+                return true;
+            }
+        }
+        return false;
     }
+
+    //ID
 
     public int getIDInput(String message) {
         while (true) {
