@@ -121,15 +121,16 @@ public class InputHandlerTest {
 
         @Test
         public void testIsValidCourse() {
-            assertTrue(InputHandler.isValidCourse("CS"));
+            // These should match actual values in your Data/courses.json
             assertTrue(InputHandler.isValidCourse("Computer Science"));
-            assertTrue(InputHandler.isValidCourse("A".repeat(50)));
+            assertTrue(InputHandler.isValidCourse("Cybersecurity"));
 
+            // Invalid cases
             assertFalse(InputHandler.isValidCourse(null));
             assertFalse(InputHandler.isValidCourse(""));
-            assertFalse(InputHandler.isValidCourse(" "));
-            assertFalse(InputHandler.isValidCourse("A"));           // too short
-            assertFalse(InputHandler.isValidCourse("A".repeat(51))); // too long
+            assertFalse(InputHandler.isValidCourse("InvalidCourse"));
+            assertFalse(InputHandler.isValidCourse("Cybersecurities"));  // slight variation
+            assertFalse(InputHandler.isValidCourse("Biology")); // not in json
         }
     }
 
