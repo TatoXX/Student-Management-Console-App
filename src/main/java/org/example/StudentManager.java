@@ -16,7 +16,7 @@ public class StudentManager {
     //Added Students List
     private List<Student> students = new ArrayList<>();
 
-    private static Set<Integer> usedIDs = new HashSet<>();
+    private static final Set<Integer> usedIDs = new HashSet<>();
 
     public static boolean isIDTaken(int id) {
         return usedIDs.contains(id);
@@ -76,33 +76,32 @@ public class StudentManager {
 
     //Get All Students
 
-    public List<Student> getAllStudents() {
+    public void getAllStudents() {
         if (students.isEmpty()) {
             System.out.println("No students to display.");
-            return null;
+            return;
         }
         for (Student student : students) {
             System.out.println(student);
         }
-        return null;
     }
 
     //Update Student with ID
 
     public void updateStudent(int id, Student updatedStudent ) {
-        Student findstudent = null;
+        Student foundstudent = null;
         for (Student student : students) {
             if (student.getId() == id) {
-                findstudent = student;
+                foundstudent = student;
                 break;
 
             }
         }
-        if (findstudent != null) {
-            findstudent.setAge(updatedStudent.getAge());
-            findstudent.setName(updatedStudent.getName());
-            findstudent.setEmail(updatedStudent.getEmail());
-            findstudent.setCourse(updatedStudent.getCourse());
+        if (foundstudent != null) {
+            foundstudent.setAge(updatedStudent.getAge());
+            foundstudent.setName(updatedStudent.getName());
+            foundstudent.setEmail(updatedStudent.getEmail());
+            foundstudent.setCourse(updatedStudent.getCourse());
         }else{
             System.out.println("Student with id " + id + " not found.");
         }
@@ -173,11 +172,6 @@ public class StudentManager {
             System.out.println("Failed to load students: " + e.getMessage());
         }
     }
-
-
-
-
-
 
 
     // Add a getter to access students for display etc.
